@@ -52,7 +52,12 @@ atau jalankan `DemoApplication.java`
 
 ### 3. Akses di Browser
 
-http://localhost:8080
+http://localhost:8080/
+
+
+http://localhost:8080/login
+username = admin
+password = admin 
 
 ---
 
