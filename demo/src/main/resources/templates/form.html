@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrasi Mahasiswa</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        /* tambahan kecil biar contoh terlihat halus */
+        .hint-example {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+            display: block;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #bbb;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Pendaftaran Mahasiswa Baru 2026/2027</h2>
+
+<!-- CAMPUS INFO BUTTON -->
+<div style="text-align:center; margin-bottom:15px;">
+    <a href="/campus-info">
+        <button type="button" style="
+            background:#6c5ce7;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;">
+            Klik for Campus Info
+        </button>
+    </a>
+</div>
+
+<!-- PROGRESS BAR -->
+<div style="margin-bottom:15px;">
+    <div style="background:#eee; height:10px; border-radius:10px;">
+        <div id="progressBar"
+             style="height:10px; width:0%; background:#2575fc; border-radius:10px; transition:0.3s;">
+        </div>
+    </div>
+    <small id="progressText">Kelengkapan form: 0%</small>
+</div>
+
+<div th:if="${error}" class="error-box" th:text="${error}"></div>
+
+<div id="warningBox" class="error-box" style="display:none;">
+    Harap lengkapi semua data sebelum mendaftar!
+</div>
+
+<form id="formReg" action="/save" method="post" th:object="${mhs}">
+
+<label>Nama Lengkap</label>
+<input id="nama" th:field="*{nama}" placeholder="contoh: Budi Santoso">
+<small class="hint">Minimal 4 karakter</small>
+<small class="error-text" id="errNama">Nama minimal 4 karakter</small>
+
+
+<label>NIM</label>
+<input id="nim" th:field="*{nim}" placeholder="contoh: 0420230009">
+<small class="hint">10 digit angka</small>
+<small class="error-text" id="errNim">NIM salah</small>
+
+
+<label>Email</label>
+<input id="email" th:field="*{email}" placeholder="contoh: nama@gmail.com">
+<small class="hint">Email aktif</small>
+<small class="error-text" id="errEmail">Email tidak valid</small>
+
+
+<label>No HP</label>
+<input id="hp" th:field="*{noHp}" placeholder="contoh: 081234567890">
+<small class="hint">08 / 62 format</small>
+<small class="error-text" id="errHp">HP salah</small>
+
+
+<label>Tanggal Lahir</label>
+<input id="tgl" type="date" th:field="*{tanggalLahir}">
+
+<label>Program Studi</label>
+<select id="prodi" name="prodiId">
+    <option value="">Pilih Prodi</option>
+    <option th:each="p:${prodi}" th:value="${p.id}" th:text="${p.nama}"></option>
+</select>
+<small class="error-text" id="errProdi">Wajib pilih prodi</small>
+
+
+<label>Alamat</label>
+<textarea id="alamat" th:field="*{alamat}" placeholder="contoh: Jl. Ganesha No.10, Bandung"></textarea>
+<small class="error-text" id="errAlamat">Minimal 15 karakter</small>
+
+<label>Asal Sekolah</label>
+<input id="sekolah" th:field="*{asalSekolah}" placeholder="contoh: SMA Negeri 1 Bekasi">
+
+<label>Captcha</label>
+<p><b th:text="${captcha}"></b></p>
+<input id="captchaInput" name="inputCaptcha" placeholder="masukkan captcha di atas">
+<small class="error-text" id="errCaptcha">Captcha wajib diisi</small>
+
+<button id="btnSubmit" type="submit" disabled>Daftar Sekarang</button>
+
+</form>
+
+</div>
+
+<script>
+
+const fields = {
+    nama: document.getElementById("nama"),
+    nim: document.getElementById("nim"),
+    email: document.getElementById("email"),
+    hp: document.getElementById("hp"),
+    tgl: document.getElementById("tgl"),
+    prodi: document.getElementById("prodi"),
+    alamat: document.getElementById("alamat"),
+    sekolah: document.getElementById("sekolah"),
+    captcha: document.getElementById("captchaInput"),
+};
+
+const btn = document.getElementById("btnSubmit");
+
+function showError(id, show){
+    const el = document.getElementById(id);
+    if (el) el.style.display = show ? "block" : "none";
+}
+
+function updateProgress(){
+
+    let total = 8;
+    let filled = 0;
+
+    if(fields.nama.value.length >= 4) filled++;
+    if(/^\d{10}$/.test(fields.nim.value)) filled++;
+    if(fields.email.value.includes("@")) filled++;
+    if(/^(08|62)\d{8,11}$/.test(fields.hp.value)) filled++;
+    if(fields.prodi.value !== "") filled++;
+    if(fields.alamat.value.length >= 15) filled++;
+    if(fields.sekolah.value !== "") filled++;
+    if(fields.captcha.value !== "") filled++;
+
+    let percent = Math.floor((filled / total) * 100);
+
+    document.getElementById("progressBar").style.width = percent + "%";
+    document.getElementById("progressText").innerText =
+        "Kelengkapan form: " + percent + "%";
+
+    document.getElementById("warningBox").style.display =
+        (percent < 100) ? "block" : "none";
+}
+
+function validate(){
+
+    let valid = true;
+
+    if(fields.nama.value.length < 4){
+        valid = false;
+        showError("errNama", true);
+    } else showError("errNama", false);
+
+    if(!/^\d{10}$/.test(fields.nim.value)){
+        valid = false;
+        showError("errNim", true);
+    } else showError("errNim", false);
+
+    if(!fields.email.value.includes("@")){
+        valid = false;
+        showError("errEmail", true);
+    } else showError("errEmail", false);
+
+    if(!/^(08|62)\d{8,11}$/.test(fields.hp.value)){
+        valid = false;
+        showError("errHp", true);
+    } else showError("errHp", false);
+
+    if(fields.prodi.value === ""){
+        valid = false;
+        showError("errProdi", true);
+    } else showError("errProdi", false);
+
+    if(fields.alamat.value.length < 15){
+        valid = false;
+        showError("errAlamat", true);
+    } else showError("errAlamat", false);
+
+    if(fields.sekolah.value === ""){
+        valid = false;
+    }
+
+    if(fields.captcha.value === ""){
+        valid = false;
+        showError("errCaptcha", true);
+    } else showError("errCaptcha", false);
+
+    btn.disabled = !valid;
+
+    updateProgress();
+}
+
+document.querySelectorAll("input, textarea, select")
+    .forEach(e => e.addEventListener("input", validate));
+
+</script>
+
+</body>
+</html>

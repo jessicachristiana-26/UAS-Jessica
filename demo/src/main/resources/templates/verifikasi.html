@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Verifikasi Mahasiswa</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container" style="width:600px">
+
+    <h2 style="text-align:center;">Verifikasi Pendaftaran</h2>
+
+    <!-- CARD -->
+    <div class="card">
+
+        <form action="/verifikasi" method="post">
+
+            <input type="hidden" name="id" th:value="${m.id}">
+
+            <div class="info-box">
+                <label>Nama Lengkap</label>
+                <p class="value" th:text="${m.nama}"></p>
+            </div>
+
+            <div class="info-box">
+                <label>NIM</label>
+                <p class="value" th:text="${m.nim}"></p>
+            </div>
+
+            <div class="info-box">
+                <label>Program Studi</label>
+                <p class="value"
+                   th:text="${m.programStudi != null ? m.programStudi.nama : '-'}"></p>
+            </div>
+
+            <!-- STATUS -->
+            <div class="info-box">
+                <label>Status Verifikasi</label>
+                <select name="status" class="select-box">
+                    <option value="Terverifikasi">Terverifikasi</option>
+                    <option value="Ditolak">Ditolak</option>
+                </select>
+            </div>
+
+            <!-- 🔘 BUTTON -->
+            <div class="button-group">
+                <button type="submit" class="btn-primary">Proses Verifikasi</button>
+                <a href="/dashboard">
+                    <button type="button" class="btn-secondary">Kembali</button>
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

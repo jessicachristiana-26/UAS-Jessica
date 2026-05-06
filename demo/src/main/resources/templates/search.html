@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pencarian Mahasiswa</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container" style="width:750px;">
+
+<h2 style="text-align:center;">Pencarian Data Mahasiswa</h2>
+
+<!--  SEARCH + FILTER -->
+<form action="/search" method="get" class="search-box">
+
+    <!-- INPUT KEYWORD -->
+    <input type="text"
+           name="keyword"
+           placeholder="Masukkan Nama / NIM..."
+           th:value="${keyword}">
+
+    <!-- STATUS FILTER -->
+    <select name="status">
+        <option value="">Semua Status</option>
+        <option value="Pending" th:selected="${status == 'Pending'}">Pending</option>
+        <option value="Verified" th:selected="${status == 'Verified'}">Verified</option>
+        <option value="Rejected" th:selected="${status == 'Rejected'}">Rejected</option>
+    </select>
+
+    <button type="submit">Cari</button>
+
+</form>
+
+<!--  TABLE -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <!-- 🔵 BELUM SEARCH -->
+        <tr th:if="${data == null}">
+            <td colspan="3" class="not-found">
+                Silakan masukkan kata kunci untuk mencari data
+            </td>
+        </tr>
+
+        <!-- 🔴 DATA KOSONG -->
+        <tr th:if="${data != null and #lists.isEmpty(data)}">
+            <td colspan="3" class="not-found">
+                Data tidak ditemukan
+            </td>
+        </tr>
+
+        <!-- 🟢 HASIL SEARCH -->
+        <tr th:each="m : ${data}">
+            <td th:text="${m.nama}"></td>
+            <td th:text="${m.nim}"></td>
+
+            <td>
+                <span th:text="${m.status}"
+                      th:classappend="
+                        ${m.status == 'Pending'} ? 'badge pending' :
+                        (${m.status == 'Verified'} ? 'badge verified' :
+                        'badge rejected')">
+                </span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<br>
+
+<div style="text-align:center;">
+    <a href="/dashboard">
+        <button class="btn-secondary">Kembali</button>
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

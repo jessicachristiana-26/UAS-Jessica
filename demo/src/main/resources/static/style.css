@@ -1,0 +1,314 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    margin: 0;
+    padding: 0;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+    width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* ================= FORM INPUT ================= */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #2575fc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1a5edb;
+}
+
+/* ================= ERROR ================= */
+.success {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+}
+
+input.error, textarea.error, select.error {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+small.error-text {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+
+/* ================= TABLE ================= */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #2575fc;
+    color: white;
+    padding: 12px;
+}
+
+.table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table tr:nth-child(even) {
+    background: #f5f7ff;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    align-items: stretch;
+}
+
+/* INPUT */
+.search-box input {
+    flex: 3;
+    min-width: 0;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* SELECT */
+.search-box select {
+    flex: 2;
+    min-width: 0;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: white;
+}
+
+/* FOCUS STYLE */
+.search-box input:focus,
+.search-box select:focus {
+    outline: none;
+    border: 2px solid #2575fc;
+}
+
+/* BUTTON */
+.search-box button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    background: #2575fc;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.search-box button:hover {
+    background: #1a5edb;
+}
+
+/* ================= NOT FOUND ================= */
+.not-found {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
+/* ================= TOP BAR ================= */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.top-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* ================= BADGE STATUS ================= */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.pending {
+    background: #f39c12;
+}
+
+.verified {
+    background: #2ecc71;
+}
+
+.rejected {
+    background: #e74c3c;
+}
+
+/* ================= BUTTON ================= */
+.btn-danger {
+    background: red;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: darkred;
+}
+
+.btn-secondary {
+    background: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+}
+
+/* ================= CARD ================= */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.info-box {
+    margin-bottom: 15px;
+}
+
+.info-box label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.value {
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 5px;
+}
+
+.select-box {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background: #2575fc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+}
+
+/* ================= HINT ================= */
+.hint {
+    font-size: 11px;
+    color: #777;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: block;
+}
+/* ================= HINT (INSTRUKSI) ================= */
+.hint {
+    font-size: 11px;
+    color: #6c757d; /* abu soft */
+    margin-top: -8px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* ================= ERROR TEXT ================= */
+.error-text {
+    color: #e74c3c; /* merah jelas */
+    font-size: 11px;
+    display: none;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* ================= INPUT ERROR ================= */
+input.error,
+textarea.error,
+select.error {
+    border: 2px solid #e74c3c;
+    background: #ffe6e6;
+}
+
+/* ================= OPTIONAL: VALID STATE ================= */
+input.valid,
+textarea.valid,
+select.valid {
+    border: 2px solid #2ecc71;
+    background: #eaffea;
+}
+
+/* ================= SUCCESS BOX (backend message) ================= */
+.success {
+    text-align: center;
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+/* ================= ERROR BOX (backend) ================= */
+.error-box {
+    background: #ffe6e6;
+    color: #c0392b;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: 500;
+}

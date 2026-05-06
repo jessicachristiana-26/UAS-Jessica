@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container" style="width:900px">
+
+<h2 style="text-align:center;">Dashboard Admin</h2>
+
+<div class="top-bar">
+
+    <div>
+        <h3>Daftar Calon Mahasiswa</h3>
+
+        <p>Total Pendaftar: <b th:text="${total}">0</b></p>
+        <p>Menunggu Verifikasi: <b th:text="${pending}">0</b></p>
+        <p>Terverifikasi: <b th:text="${verified}">0</b></p>
+        <p>Ditolak: <b th:text="${rejected}">0</b></p>
+
+    </div>
+
+    <div class="top-buttons">
+        <a href="/"><button>Form Pendaftaran</button></a>
+        <a href="/search"><button>Cari Data</button></a>
+        <a href="/logout"><button class="btn-danger">Logout</button></a>
+    </div>
+
+</div>
+
+<table class="table">
+
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Nama</th>
+    <th>NIM</th>
+    <th>Prodi</th>
+    <th>Tanggal</th>
+    <th>Status</th>
+    <th>Aksi</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr th:each="m : ${data}">
+
+    <td th:text="${m.id}"></td>
+    <td th:text="${m.nama}"></td>
+    <td th:text="${m.nim}"></td>
+
+    <td th:text="${m.programStudi != null ? m.programStudi.nama : '-'}"></td>
+    <td th:text="${m.tanggalDaftar != null ? m.tanggalDaftar : '-'}"></td>
+
+    <!-- STATUS FIX -->
+    <td>
+        <span
+            th:text="${m.status == 'Pending'} ? 'Menunggu Verifikasi' :
+                    (${m.status == 'Verified'} ? 'Terverifikasi' : 'Ditolak')"
+            th:class="'badge ' +
+                    (${m.status == 'Pending'} ? 'pending' :
+                    (${m.status == 'Verified'} ? 'verified' : 'rejected'))">
+        </span>
+    </td>
+
+    <td>
+        <a th:href="@{'/verifikasi/'+${m.id}}">
+            <button>Verifikasi</button>
+        </a>
+    </td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</body>
+</html>
