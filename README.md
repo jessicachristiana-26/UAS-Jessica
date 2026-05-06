@@ -5,9 +5,9 @@ Project UAS berbasis Spring Boot untuk sistem registrasi mahasiswa.
 ## truktur Folder
 
 UAS-mhs/
-├── demo/              # Source code Spring Boot
-├── registrasi_db.sql  # Database MySQL
-└── README.md
+  demo/              # Source code Spring Boot
+    registrasi_db.sql  # Database MySQL
+      README.md
 
 ---
 
